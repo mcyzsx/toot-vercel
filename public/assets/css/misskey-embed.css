@@ -1,0 +1,108 @@
+/* Misskey嵌入样式适配 */
+
+.misskey-embed-container {
+    margin: 2rem 0;
+    text-align: left;
+    width: 100%;
+    min-height: 300px;
+    line-height: 2;
+    position: relative;
+}
+
+.misskey-iframe {
+    border-radius: 0.5rem;
+    border: none;
+    background: var(--color-text-bg);
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    min-height: 300px;
+    max-height: 700px;
+    transition: all 0.3s ease;
+    color-scheme: light;
+}
+
+/* 深色主题适配 */
+body.dark-theme .misskey-iframe {
+    color-scheme: dark;
+    background: var(--color-text-bg);
+}
+
+/* 悬停效果，类似于原始的timeline悬停效果 */
+.misskey-embed-container:hover .misskey-iframe {
+    background: var(--color-text-hover);
+}
+
+/* 响应式适配，遵循原始设计断点 */
+@media (max-width: 900px) {
+    .misskey-iframe {
+        height: 350px;
+    }
+}
+
+@media (max-width: 684px) {
+    .misskey-iframe {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .misskey-iframe {
+        height: 450px;
+    }
+}
+
+/* 自定义加载状态，匹配原始样式 */
+.misskey-embed-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    color: var(--color-main);
+    font-size: 1rem;
+    background: var(--color-text-bg);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0;
+    width: 100%;
+}
+
+.misskey-embed-loading::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-main);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 嵌入内容样式调整，使其与原始样式一致 */
+.misskey-embed-container iframe {
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+/* 添加类似memos类的样式一致性 */
+.misskey-embed-container {
+    flex-grow: 1;
+    position: relative;
+    max-width: 100%;
+}
+
+/* 添加标签样式一致性，如果需要 */
+.misskey-embed-container .tag-span {
+    margin: 0 0.25rem;
+    color: var(--color-tag);
+}
+
+.misskey-embed-container .tag-span:hover {
+    color: var(--color-tag-hover);
+}
