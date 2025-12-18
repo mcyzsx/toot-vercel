@@ -1,0 +1,63 @@
+/* Misskey 嵌入样式适配 */
+.misskey-embed-container {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+.misskey-embed {
+    border: none;
+    width: 100%;
+    height: 300px;
+    color-scheme: light dark;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 适配暗色主题 */
+.dark-theme .misskey-embed {
+    filter: brightness(0.9);
+}
+
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .misskey-embed-container {
+        max-width: 100%;
+    }
+    
+    .misskey-embed {
+        height: 400px;
+    }
+}
+
+/* 加载状态 */
+.misskey-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    background-color: var(--color-text-bg);
+    border-radius: 8px;
+    color: var(--color-main);
+}
+
+/* 错误状态 */
+.misskey-error {
+    padding: 20px;
+    background-color: var(--color-text-bg);
+    border-radius: 8px;
+    color: var(--color-main);
+    text-align: center;
+}
+
+/* 与现有样式保持一致 */
+.misskey-embed-container h3 {
+    margin-bottom: 10px;
+    color: var(--color-main);
+}
+
+.misskey-embed-container p {
+    margin-bottom: 15px;
+    color: var(--color-fg-muted);
+    font-size: 0.9rem;
+}
