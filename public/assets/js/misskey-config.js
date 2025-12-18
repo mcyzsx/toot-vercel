@@ -25,7 +25,7 @@ const misskeyConfig = {
     containerTitle: 'Misskey 时间线',
     
     // 容器描述
-    '来自 Misskey 社交平台的最新动态'
+    containerDescription: '来自 Misskey 社交平台的最新动态'
 };
 
 // 设置全局配置

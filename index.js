@@ -77,10 +77,15 @@ app.get('/', (req, res) => {
 
 // 代理 /api/memos 路由
 app.get('/api/memos', async (req, res) => {
-    // 从环境变量读取
-    const host = process.env.HOST.replace(/\/$/, '');
-    const userId = process.env.USERID;
+    // 从环境变量读取，添加默认值和错误检查
+    const host = (process.env.HOST || 'https://jiong.us/').replace(/\/$/, '');
+    const userId = process.env.USERID || '110710864910866001';
     const token = process.env.TOKEN; 
+
+    // 检查必需的变量是否存在
+    if (!host || !userId) {
+        return res.status(500).json({ error: '服务器配置错误：缺少必要的API参数' });
+    }
 
     // 组装参数
     const limit = req.query.limit || 10;
@@ -97,7 +102,7 @@ app.get('/api/memos', async (req, res) => {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
         const response = await axios.get(url, {
             headers,
-            timeout: 5000
+            timeout: 10000 // 增加超时时间
         });
         // 透传 Link header（用于前端获取下一页）
         if (response.headers.link) {
@@ -105,10 +110,21 @@ app.get('/api/memos', async (req, res) => {
         }
         res.json(response.data);
     } catch (err) {
+        console.error('API请求错误:', err.message);
         if (err.code === 'ECONNABORTED') {
             res.status(504).json({ error: '请求第三方API超时' });
+        } else if (err.response) {
+            // API返回错误响应
+            res.status(err.response.status).json({ 
+                error: `API返回错误: ${err.response.status}`,
+                detail: err.response.data 
+            });
         } else {
-            res.status(500).json({ error: 'API 代理失败', detail: err.message });
+            res.status(500).json({ 
+                error: 'API 代理失败', 
+                detail: err.message,
+                url: url // 添加请求URL以便调试
+            });
         }
     }
 });

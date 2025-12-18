@@ -8,8 +8,19 @@
     ],
     "routes": [
       {
+        "src": "/api/(.*)",
+        "dest": "/index.js"
+      },
+      {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "/index.js"
       }
-    ]
+    ],
+    "env": {
+      "HOST": "@host",
+      "USERID": "@userid",
+      "TOKEN": "@token",
+      "TITTLE": "@tittle",
+      "DESCRIPTION": "@description"
+    }
   }
